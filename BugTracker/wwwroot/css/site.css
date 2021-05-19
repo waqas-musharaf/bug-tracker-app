@@ -1,0 +1,35 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+label {
+    font-size: 16px;
+}
+
+input {
+    font-size: 16px;
+    width: 200px;
+}
+
+    input[type=submit], input[type=checkbox] {
+        width: auto;
+    }
+
+#login {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+}
+
+menu li {
+    display: inline;
+}
+
+    menu li::after {
+        content: " |";
+    }
+
+    menu li:last-of-type::after {
+        content: "";
+    }

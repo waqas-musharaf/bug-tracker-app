@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 0,
+    "Name": "Test Project 1",
+    "Description": "This is the first example project."
+  },
+  {
+    "Id": 0,
+    "Name": "Another Test Project",
+    "Description": "As the name suggests."
+  },
+  {
+    "Id": 0,
+    "Name": "More Data",
+    "Description": "Another example."
+  }
+]

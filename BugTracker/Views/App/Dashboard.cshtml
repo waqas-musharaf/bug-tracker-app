@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Project>
+@{
+    ViewBag.Title = "Dashboard";
+}
+<h4>Projects:</h4>
+<p>Count: @Model.Count()</p>
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-3">
+            <div class="border bg-light rounded p-2">
+                <i class="fas fa-project-diagram fa-2x"></i> Project ID: @p.Id
+                <ul>
+                    <li>Name: @p.Name</li>
+                    <li>Desc: @p.Description</li>
+                </ul>
+                <button id="expandBtn" class="btn btn-info">Expand</button>
+            </div>
+        </div>
+    }
+</div>

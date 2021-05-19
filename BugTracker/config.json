@@ -1,0 +1,11 @@
+{
+	"ConnectionStrings": {
+		"BugTrackerContextDb": "Data Source=(localdb)\\ProjectsV13;Initial Catalog=BugTrackerDb;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True;"
+	},
+	"Logging": {
+		"LogLevel": {
+			"Default": "Information",
+			"Microsoft": "Warning"
+		}
+	}
+}
