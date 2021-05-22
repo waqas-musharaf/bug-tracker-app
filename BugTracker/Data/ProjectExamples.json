@@ -2,16 +2,19 @@
   {
     "Id": 0,
     "Name": "Test Project 1",
-    "Description": "This is the first example project."
+    "Description": "This is the first example project.",
+    "AssignedUser": 1
   },
   {
     "Id": 0,
     "Name": "Another Test Project",
-    "Description": "As the name suggests."
+    "Description": "As the name suggests.",
+    "AssignedUser": 1
   },
   {
     "Id": 0,
     "Name": "More Data",
-    "Description": "Another example."
+    "Description": "Another example.",
+    "AssignedUser": 1
   }
 ]

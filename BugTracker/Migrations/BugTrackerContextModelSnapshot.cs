@@ -4,16 +4,14 @@ using BugTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BugTracker.Migrations
 {
     [DbContext(typeof(BugTrackerContext))]
-    [Migration("20210519080638_InitialDb")]
-    partial class InitialDb
+    partial class BugTrackerContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +25,9 @@ namespace BugTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AssignedUser")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -46,6 +47,9 @@ namespace BugTracker.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AssignedToUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
@@ -61,16 +65,16 @@ namespace BugTracker.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OfProjectId")
+                    b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<int>("Priority")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubmittedById")
+                    b.Property<int>("SubmittedByUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -78,9 +82,7 @@ namespace BugTracker.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OfProjectId");
-
-                    b.HasIndex("SubmittedById");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Tickets");
                 });
@@ -92,7 +94,7 @@ namespace BugTracker.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ChangedByUserId")
+                    b.Property<int>("ChangedByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateChanged")
@@ -107,12 +109,10 @@ namespace BugTracker.Migrations
                     b.Property<string>("PropertyChanged")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TicketId")
+                    b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChangedByUserId");
 
                     b.HasIndex("TicketId");
 
@@ -132,77 +132,46 @@ namespace BugTracker.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("TicketId");
-
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BugTracker.Data.Entities.Ticket", b =>
                 {
-                    b.HasOne("BugTracker.Data.Entities.Project", "OfProject")
+                    b.HasOne("BugTracker.Data.Entities.Project", "Project")
                         .WithMany("AttachedTickets")
-                        .HasForeignKey("OfProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("BugTracker.Data.Entities.User", "SubmittedBy")
-                        .WithMany()
-                        .HasForeignKey("SubmittedById");
-
-                    b.Navigation("OfProject");
-
-                    b.Navigation("SubmittedBy");
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("BugTracker.Data.Entities.TicketHistory", b =>
                 {
-                    b.HasOne("BugTracker.Data.Entities.User", "ChangedByUser")
-                        .WithMany()
-                        .HasForeignKey("ChangedByUserId");
-
-                    b.HasOne("BugTracker.Data.Entities.Ticket", null)
+                    b.HasOne("BugTracker.Data.Entities.Ticket", "Ticket")
                         .WithMany("History")
-                        .HasForeignKey("TicketId");
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ChangedByUser");
-                });
-
-            modelBuilder.Entity("BugTracker.Data.Entities.User", b =>
-                {
-                    b.HasOne("BugTracker.Data.Entities.Project", null)
-                        .WithMany("AssignedUsers")
-                        .HasForeignKey("ProjectId");
-
-                    b.HasOne("BugTracker.Data.Entities.Ticket", null)
-                        .WithMany("AssignedTo")
-                        .HasForeignKey("TicketId");
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("BugTracker.Data.Entities.Project", b =>
                 {
-                    b.Navigation("AssignedUsers");
-
                     b.Navigation("AttachedTickets");
                 });
 
             modelBuilder.Entity("BugTracker.Data.Entities.Ticket", b =>
                 {
-                    b.Navigation("AssignedTo");
-
                     b.Navigation("History");
                 });
 #pragma warning restore 612, 618

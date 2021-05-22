@@ -34,5 +34,20 @@ namespace BugTracker.Data
                 _context.SaveChanges();
             }
         }
+
+        public void SeedTickets()
+        {
+            _context.Database.EnsureCreated();
+
+            if (!_context.Tickets.Any())
+            {
+                var filePath = Path.Combine(_env.ContentRootPath, "Data/TicketExamples.json");
+                var json = File.ReadAllText(filePath);
+                var tickets = JsonSerializer.Deserialize<IEnumerable<Ticket>>(json);
+
+                _context.Tickets.AddRange(tickets);
+                _context.SaveChanges();
+            }
+        }
     }
 }

@@ -7,6 +7,10 @@ namespace BugTracker.Data
     {
         IEnumerable<Project> GetAllProjects();
         IEnumerable<Project> GetProjectsByName(string name);
+        Project GetProjectById(int id);
+
+        IEnumerable<Ticket> GetAllTickets();
+
         bool SaveAll();
     }
 }

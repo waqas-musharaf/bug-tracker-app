@@ -1,4 +1,5 @@
 ﻿using BugTracker.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace BugTracker.Data
             try
             {
                 return _context.Projects
+                    .Include(p => p.AttachedTickets)
                     .OrderBy(p => p.Id)
                     .ToList();
 
@@ -30,6 +32,38 @@ namespace BugTracker.Data
             catch (Exception e)
             {
                 _logger.LogError($"GetAllProjects failed: {e}");
+                return null;
+            }
+        }
+
+        public IEnumerable<Ticket> GetAllTickets()
+        {
+            try
+            {
+                return _context.Tickets
+                    .OrderBy(t => t.Id)
+                    .ToList();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"GetAllTickets failed: {e}");
+                return null;
+            }
+        }
+
+        public Project GetProjectById(int id)
+        {
+            try
+            {
+                return _context.Projects
+                    .Include(p => p.AttachedTickets)
+                    .Where(p => p.Id == id)
+                    .FirstOrDefault();
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"GetProjectById failed: {e}");
                 return null;
             }
         }

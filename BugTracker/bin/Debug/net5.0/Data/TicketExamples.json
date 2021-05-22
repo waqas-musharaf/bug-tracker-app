@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 0,
+    "Name": "Example Ticket",
+    "Description": "It's an example",
+    "SubmittedByUserId": 1,
+    "AssignedToUserId": 1,
+    "ProjectId": 1,
+    "Priority": 0,
+    "Status": "Active",
+    "Type": "Default",
+    "CreatedDate": "2021-05-22T23:39:00",
+    "EditedDate": "2021-05-22T23:39:00",
+    "Comments": ""
+  },
+  {
+    "Id": 0,
+    "Name": "Another Ticket",
+    "Description": "One more",
+    "SubmittedByUserId": 1,
+    "AssignedToUserId": 1,
+    "ProjectId": 1,
+    "Priority": 0,
+    "Status": "Completed",
+    "Type": "Default",
+    "CreatedDate": "2021-05-22T23:39:00",
+    "EditedDate": "2021-05-22T23:39:00",
+    "Comments": "This is a comment"
+  }
+]

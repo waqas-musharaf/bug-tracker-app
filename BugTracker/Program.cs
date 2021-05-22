@@ -34,6 +34,7 @@ namespace BugTracker
             {
                 var seeder = scope.ServiceProvider.GetService<BugTrackerSeeder>();
                 seeder.SeedProjects();
+                seeder.SeedTickets();
             }
         }
 
